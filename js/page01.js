@@ -54,4 +54,24 @@ $(document).ready(function(){
         },
         errorClass: "is-invalid" 
     });
+
+    $('#btn-enviar').click(function(event){
+        event.preventDefault();
+        if ($('#form-user').valid()){
+            $.ajax({
+                method: 'POST',
+                url: 'page01.php',
+                data: $('#form-user').serialize(),
+                dataType: 'json',
+                success: function(retorno){
+                    //pegando o retorno da requisição
+                    $('#toast-cadastro .toast-body').html(retorno['message']);
+                    $('#toast-cadastro').toast({
+                        autohide: true,
+                        delay: 5000
+                    }).toast('show');
+                }
+            });
+        }
+    });
 });
