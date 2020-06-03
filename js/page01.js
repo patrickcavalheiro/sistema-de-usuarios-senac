@@ -63,7 +63,7 @@ $(document).ready(function(){
                 url: 'page01.php',
                 data: $('#form-user').serialize(),
                 dataType: 'json',
-                success: function(retorno){
+                success: function(retorno){                     
                     //pegando o retorno da requisição
                     $('#toast-cadastro .toast-body').html(retorno['message']);
                     $('#toast-cadastro').toast({
@@ -74,4 +74,19 @@ $(document).ready(function(){
             });
         }
     });
+
+    function atualizaEndereco(dadosCep){
+        if (dadosCep != false){
+            $('#cidade').val(dadosCep['cidade']);
+            $('#estado').val(dadosCep['estado']);
+            $('#rua').val(dadosCep['logradouro']);
+            $('#bairro').val(dadosCep['bairro']);
+        }
+    }
+
+    $('#cep').focusout(function(){        
+        let cep = $(this).val();
+        consultaCep(cep, atualizaEndereco);        
+    });
+
 });
